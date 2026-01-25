@@ -78,9 +78,8 @@ Welcome to my GitHub! I'm a **Full-Stack Developer**, **AI/ML Enthusiast**, and 
 
 ## 📫 Let's Connect!
 
-- 📧 **abhinav.padige@gmail.com**
+- 📧 **abhinavpadige06@gmail.com**
 - 🌐 [LinkedIn](https://www.linkedin.com/in/abhinavpadige/)
-- 🐙 [GitHub](https://github.com/abhinavpadige06)
 - 🌍 [DoFreelancingWithUs](https://dofreelancingwithus.vercel.app)
 
 ---
