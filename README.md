@@ -131,8 +131,8 @@ Peer-to-peer platform for buying and selling academic resources.
 
 - 📧 Email: **abhinavpadige06@gmail.com**
 - 💼 LinkedIn: https://www.linkedin.com/in/abhinavpadige
-- 💻 GitHub: https://github.com/abhinavpadige4
-- 🌐 Portfolio / Agency: https://dofreelancingwithus.vercel.app
+- 🌐 Portfolio: https://abhinavpadige.vercel.app
+- Agency: https://dofreelancingwithus.vercel.app
 
 ---
 
