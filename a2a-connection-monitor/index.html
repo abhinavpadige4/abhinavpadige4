@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>A2A Connection Monitor</title>
+<style>
+  :root {
+    --bg: #0b1020;
+    --panel: #131a2e;
+    --panel-2: #1b2440;
+    --accent: #5b8cff;
+    --ok: #2ecc71;
+    --warn: #f1c40f;
+    --err: #ff5b6e;
+    --text: #e6ecff;
+    --muted: #8a96b8;
+    --border: #26304f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    background: radial-gradient(1200px 600px at 80% -10%, #1a2murky 0%, transparent 60%), var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+  header {
+    padding: 24px 32px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  header h1 { font-size: 20px; margin: 0; letter-spacing: 0.3px; }
+  header .sub { color: var(--muted); font-size: 13px; }
+  .status-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: 999px;
+    background: var(--panel-2); border: 1px solid var(--border);
+    font-size: 13px; font-weight: 600;
+  }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); }
+  .dot.ok { background: var(--ok); box-shadow: 0 0 10px var(--ok); }
+  .dot.err { background: var(--err); box-shadow: 0 0 10px var(--err); }
+  .dot.warn { background: var(--warn); box-shadow: 0 0 10px var(--warn); }
+
+  main {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 20px;
+    padding: 24px 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+  }
+  .card h2 { margin: 0 0 14px; font-size: 15px; color: var(--text); }
+  .card .hint { color: var(--muted); font-size: 12px; margin-bottom: 14px; }
+
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+  button {
+    background: var(--accent);
+    color: #fff; border: none; border-radius: 10px;
+    padding: 10px 16px; font-size: 13px; font-weight: 600; cursor: pointer;
+    transition: transform .08s ease, opacity .2s ease;
+  }
+  button:hover { opacity: .9; }
+  button:active { transform: translateY(1px); }
+  button.ghost { background: var(--panel-2); border: 1px solid var(--border); color: var(--text); }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+
+  .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+  .field label { font-size: 12px; color: var(--muted); }
+  .field input[type="range"] { width: 100%; }
+  .field .val { color: var(--accent); font-weight: 600; }
+
+  .agents { display: flex; gap: 14px; flex-wrap: wrap; }
+  .agent {
+    flex: 1 1 140px;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+  }
+  .agent .name { font-weight: 700; font-size: 14px; }
+  .agent .state { font-size: 12px; margin-top: 6px; color: var(--muted); }
+  .agent .ring {
+    width: 46px; height: 46px; border-radius: 50%;
+    margin: 10px auto; border: 3px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .agent.connecting .ring { border-color: var(--warn); }
+  .agent.online .ring { border-color: var(--ok); }
+  .agent.failed .ring { border-color: var(--err); }
+
+  .log {
+    background: #0a0f1e;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    height: 280px;
+    overflow-y: auto;
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .log .line { white-space: pre-wrap; }
+  .log .t { color: var(--muted); }
+  .log .ok { color: var(--ok); }
+  .log .err { color: var(--err); }
+  .log .warn { color: var(--warn); }
+  .log .info { color: var(--accent); }
+
+  .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
+  .metric { background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px; padding: 12px; text-align: center; }
+  .metric .num { font-size: 22px; font-weight: 800; }
+  .metric .lbl { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  .banner {
+    margin: 0 32px; padding: 14px 18px; border-radius: 12px;
+    background: rgba(255,91,110,0.12); border: 1px solid var(--err);
+    color: #ffd2d8; font-size: 13px; display: none;
+  }
+  .banner.show { display: block; }
+  .banner b { color: #fff; }
+  footer { text-align: center; color: var(--muted); font-size: 12px; padding: 24px; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>🛰️ A2A Connection Monitor</h1>
+    <div class="sub">Agent-to-Agent resilient communication simulator</div>
+  </div>
+  <div class="status-pill"><span class="dot" id="globalDot"></span><span id="globalStatus">Idle</span></div>
+</header>
+
+<div class="banner" id="banner">
+  <b>A2A request failed:</b> All connection attempts failed. The agent pool is unreachable — retrying with exponential backoff.
+</div>
+
+<main>
+  <section class="card">
+    <h2>Agent Mesh</h2>
+    <div class="hint">Each agent attempts to connect to its peers. Failures trigger automatic retries with exponential backoff.</div>
+    <div class="agents" id="agents"></div>
+
+    <div class="controls" style="margin-top:18px;">
+      <button id="startBtn">▶ Start Mesh</button>
+      <button id="chaosBtn" class="ghost">💥 Toggle Chaos (100% fail)</button>
+      <button id="clearBtn" class="ghost">🧹 Clear Log</button>
+    </div>
+
+    <div class="field">
+      <label>Max retry attempts: <span class="val" id="maxRetryVal">5</span></label>
+      <input type="range" id="maxRetry" min="1" max="10" value="5" />
+    </div>
+    <div class="field">
+      <label>Base backoff (ms): <span class="val" id="backoffVal">400</span></label>
+      <input type="range" id="backoff" min="100" max="2000" step="100" value="400" />
+    </div>
+
+    <div class="metrics">
+      <div class="metric"><div class="num" id="mAttempts">0</div><div class="lbl">Attempts</div></div>
+      <div class="metric"><div class="num" id="mSuccess">0</div><div class="lbl">Connected</div></div>
+      <div class="metric"><div class="num" id="mFailed">0</div><div class="lbl">Failed</div></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Live Event Log</h2>
+    <div class="hint">Real-time trace of connection attempts, failures, and recovery.</div>
+    <div class="log" id="log"></div>
+  </section>
+</main>
+
+<footer>NeuroVerse AI OS · Portfolio Demo · Resilient A2A networking</footer>
+
+<script>
+  const AGENTS = ["Orchestrator", "Planner", "Retriever", "Coder", "Critic"];
+  const state = {
+    running: false,
+    chaos: false,
+    attempts: 0,
+    success: 0,
+    failed: 0,
+    timers: []
+  };
+
+  const $ = (id) => document.getElementById(id);
+  const logEl = $("log");
+
+  function log(msg, cls = "info") {
+    const t = new Date().toLocaleTimeString();
+    const line = document.createElement("div");
+    line.className = "line";
+    line.innerHTML = `<span class="t">[${t}]</span> <span class="${cls}">${msg}</span>`;
+    logEl.appendChild(line);
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+
+  function renderAgents() {
+    const wrap = $("agents");
+    wrap.innerHTML = "";
+    AGENTS.forEach((name) => {
+      const el = document.createElement("div");
+      el.className = "agent";
+      el.id = "agent-" + name;
+      el.innerHTML = `
+        <div class="ring">🤖</div>
+        <div class="name">${name}</div>
+        <div class="state">offline</div>`;
+      wrap.appendChild(el);
+    });
+  }
+
+  function setAgent(name, status, label) {
+    const el = $("agent-" + name);
+    if (!el) return;
+    el.className = "agent " + status;
+    el.querySelector(".state").textContent = label;
+  }
+
+  function setGlobal(status, label) {
+    const dot = $("globalDot");
+    dot.className = "dot " + status;
+    $("globalStatus").textContent = label;
+  }
+
+  function updateMetrics() {
+    $("mAttempts").textContent = state.attempts;
+    $("mSuccess").textContent = state.success;
+    $("mFailed").textContent = state.failed;
+  }
+
+  // Simulate a single connection attempt that may fail.
+  function attemptConnect(agent) {
+    return new Promise((resolve) => {
+      const willFail = state.chaos || Math.random() < 0.45;
+      setTimeout(() => resolve(!willFail), 250 + Math.random() * 350);
+    });
+  }
+
+  async function connectWithRetry(agent) {
+    const maxRetry = parseInt($("maxRetry").value, 10);
+    const base = parseInt($("backoff").value, 10);
+    let attempt = 0;
+
+    while (attempt <= maxRetry) {
+      attempt++;
+      state.attempts++;
+      updateMetrics();
+      setAgent(agent, "connecting", `attempt ${attempt}`);
+      log(`→ ${agent}: connection attempt #${attempt}...`, "info");
+
+      const ok = await attemptConnect(agent);
+      if (ok) {
+        state.success++;
+        updateMetrics();
+        setAgent(agent, "online", "online");
+        log(`✓ ${agent}: connected successfully.`, "ok");
+        return true;
+      }
+
+      if (attempt <= maxRetry) {
+        const delay = base * Math.pow(2, attempt - 1);
+        log(`✗ ${agent}: attempt #${attempt} failed. Backing off ${delay}ms.`, "warn");
+        setAgent(agent, "failed", `retry in ${delay}ms`);
+        await new Promise((r) => setTimeout(r, delay));
+      }
+    }
+
+    state.failed++;
+    updateMetrics();
+    setAgent(agent, "failed", "unreachable");
+    log(`✗✗ ${agent}: A2A request failed — all connection attempts failed.`, "err");
+    return false;
+  }
+
+  async function runMesh() {
+    if (state.running) return;
+    state.running = true;
+    $("startBtn").disabled = true;
+    $("chaosBtn").disabled = true;
+    setGlobal("warn", "Connecting mesh...");
+    log("=== Starting A2A mesh handshake ===", "info");
+
+    const results = await Promise.all(AGENTS.map((a) => connectWithRetry(a)));
+    const online = results.filter(Boolean).length;
+
+    if (online === AGENTS.length) {
+      setGlobal("ok", "Mesh online");
+      log(`✓ Mesh fully connected (${online}/${AGENTS.length} agents).`, "ok");
+    } else if (online === 0) {
+      setGlobal("err", "Mesh down");
+      $("banner").classList.add("show");
+      log("✗✗ A2A request failed: All connection attempts failed across the mesh.", "err");
+    } else {
+      setGlobal("warn", "Partial mesh");
+      log(`⚠ Partial mesh: ${online}/${AGENTS.length} agents online.`, "warn");
+    }
+
+    state.running = false;
+    $("startBtn").disabled = false;
+    $("chaosBtn").disabled = false;
+  }
+
+  // Wire up controls
+  $("startBtn").addEventListener("click", runMesh);
+  $("clearBtn").addEventListener("click", () => { logEl.innerHTML = ""; });
+  $("chaosBtn").addEventListener("click", () => {
+    state.chaos = !state.chaos;
+    $("chaosBtn").textContent = state.chaos ? "🛡️ Disable Chaos" : "💥 Toggle Chaos (100% fail)";
+    log(state.chaos ? "⚠ Chaos mode ON — all attempts will fail." : "Chaos mode OFF.", "warn");
+  });
+  $("maxRetry").addEventListener("input", (e) => $("maxRetryVal").textContent = e.target.value);
+  $("backoff").addEventListener("input", (e) => $("backoffVal").textContent = e.target.value);
+
+  renderAgents();
+  log("Ready. Press 'Start Mesh' to begin A2A handshake.", "info");
+</script>
+</body>
+</html>
