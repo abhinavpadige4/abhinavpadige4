@@ -12,9 +12,7 @@ Building intelligent applications with LLMs, RAG, multi-agent systems, and scala
 
 2. **[Brand Guardian AI](https://github.com/abhinavpadige4/azure-brand-ads)**: Developing a multimodal video compliance system using Azure AI Video Indexer, Azure OpenAI, LangGraph, and Azure AI Search for automated regulatory analysis.
 
-3. **Synaptix AI**: Enterprise knowledge intelligence platform combining RAG, LangGraph, Amazon Bedrock, Pinecone, and AWS infrastructure for document-based question answering.
-
-4. **[SmartGrid AI](https://github.com/abhinavpadige4/smart-v1)**: Energy analytics platform processing 167M+ smart-meter readings with Polars, XGBoost, LightGBM, anomaly detection, and Hybrid RAG with vector search and Text-to-SQL.
+3. **[Synaptix AI](https://github.com/abhinavpadige4/Synaptix)**: Enterprise knowledge intelligence platform combining RAG, LangGraph, Amazon Bedrock, Pinecone, and AWS infrastructure for document-based question answering.
 
 **Internships**
 
