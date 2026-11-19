@@ -1,0 +1,16 @@
+.social-dock { position: fixed; bottom: max(16px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: hsl(var(--secondary) / .8); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid hsl(var(--border)); border-radius: 999px; z-index: 100; max-width: calc(100vw - 16px); isolation: isolate; }
+.dock-highlight { position: absolute; left: 0; top: 0; width: 44px; height: 44px; border-radius: 999px; background: hsl(var(--dock-color) / .15); box-shadow: 0 0 12px hsl(var(--dock-color) / .25); pointer-events: none; transition: transform .25s ease, opacity .2s ease; z-index: 0; }
+.dock-trigger { position: relative; display: inline-flex; flex-shrink: 0; z-index: 1; border-radius: 50%; }
+.dock-item { position: relative; width: 44px; height: 44px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid hsl(var(--border)); background: hsl(var(--secondary)); color: hsl(var(--muted-foreground)); font-size: 12px; font-weight: 600; transition: transform .2s ease, opacity .2s ease; }
+.dock-item:not(:disabled):hover, .dock-item.is-active { transform: translateY(-3px); }
+.dock-item.is-active { border-color: currentColor; color: hsl(var(--dock-color)); }
+.dock-item:active:not(:disabled) { transform: translateY(-1px) scale(.95); }
+.dock-item[data-color="home"] { --dock-color: var(--dock-home); }
+.dock-item[data-color="resume"] { --dock-color: var(--dock-resume); }
+.dock-item[data-color="github"] { --dock-color: var(--dock-github); }
+.dock-item[data-color="linkedin"] { --dock-color: var(--dock-linkedin); }
+.dock-item[data-color="email"] { --dock-color: var(--dock-email); }
+.dock-item[data-color="leetcode"] { --dock-color: var(--dock-leetcode); }
+.dock-item[data-color="booking"] { --dock-color: var(--dock-booking); }
+.dock-separator { width: 1px; height: 24px; background: hsl(var(--border)); margin: 0 4px; flex-shrink: 0; }
+@media (max-width: 480px) { .social-dock { gap: 2px; padding: 8px; overflow-x: auto; scrollbar-width: none; } .social-dock::-webkit-scrollbar { display: none; } .dock-separator { display: none; } }

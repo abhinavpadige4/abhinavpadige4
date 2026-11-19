@@ -1,0 +1,4 @@
+.section-block[data-reveal] { transition: transform .25s ease, opacity .25s ease; }
+.section-block[data-reveal="pending"] { opacity: 0; transform: translateY(16px); }
+.section-block[data-reveal="visible"] { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) { .section-block[data-reveal] { opacity: 1; transform: none; transition: none; } }
