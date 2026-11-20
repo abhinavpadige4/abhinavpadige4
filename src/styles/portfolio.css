@@ -77,8 +77,8 @@
 .skill-row { display: grid; grid-template-columns: 1fr; gap: 8px; align-items: start; }
 .skill-row-title { font-size: 14px; font-weight: 600; }
 .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.skill-tags span { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: hsl(var(--muted-foreground)); padding: 4px 10px; border: 1px solid hsl(var(--border)); border-radius: 999px; }
-.skill-icon { width: 14px; height: 14px; object-fit: contain; opacity: .85; }
+.skill-tags span { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: hsl(var(--muted-foreground)); padding: 4px 10px; border: 1px solid hsl(var(--border)); border-radius: 999px; }
+.skill-icon { width: 12px; height: 12px; object-fit: contain; opacity: .85; }
 .skill-icon[hidden] { display: none; }
 .certifications { margin-top: 16px; color: hsl(var(--muted-foreground)); }
 .certifications summary, .contact-compose > summary { display: flex; align-items: center; justify-content: space-between; min-height: 44px; font-size: 14px; }

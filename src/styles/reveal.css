@@ -1,4 +1,4 @@
-.section-block[data-reveal] { transition: transform .25s ease, opacity .25s ease; }
-.section-block[data-reveal="pending"] { opacity: 0; transform: translateY(16px); }
-.section-block[data-reveal="visible"] { opacity: 1; transform: translateY(0); }
-@media (prefers-reduced-motion: reduce) { .section-block[data-reveal] { opacity: 1; transform: none; transition: none; } }
+:where(.section-heading, .stat-card, .book-call-row, .contact-row, .contact-compose, .experience-item, .project-item, .achievement-item, .skill-row, .education-card) { transition: opacity .45s cubic-bezier(.22, 1, .36, 1), transform .45s cubic-bezier(.22, 1, .36, 1); transition-delay: var(--reveal-delay, 0ms); }
+:where(.section-heading, .stat-card, .book-call-row, .contact-row, .contact-compose, .experience-item, .project-item, .achievement-item, .skill-row, .education-card)[data-reveal="pending"] { opacity: 0; transform: translateY(18px); }
+:where(.section-heading, .stat-card, .book-call-row, .contact-row, .contact-compose, .experience-item, .project-item, .achievement-item, .skill-row, .education-card)[data-reveal="visible"] { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { :where(.section-heading, .stat-card, .book-call-row, .contact-row, .contact-compose, .experience-item, .project-item, .achievement-item, .skill-row, .education-card)[data-reveal] { opacity: 1; transform: none; transition: none; } }
