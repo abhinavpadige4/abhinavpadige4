@@ -1,61 +1,43 @@
-# Welcome to your OnSpace project
+AI Engineer | Generative AI | Agentic AI | B.Tech CSE (Data Science)
 
-## How can I edit this code?
+Building intelligent applications with LLMs, RAG, multi-agent systems, and scalable backend architectures.
 
-There are several ways of editing your application.
+[![LinkedIn Badge](https://img.shields.io/badge/-Abhinav_Padige-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/abhinavpadige/)](https://www.linkedin.com/in/abhinavpadige/) [![Portfolio Badge](https://img.shields.io/badge/-Portfolio-6C63FF?style=flat-square&logo=vercel&logoColor=white&link=https://abhinavpadige.vercel.app/)](https://abhinavpadige.vercel.app/) [![LeetCode Badge](https://img.shields.io/badge/-abhinavpadige06-FFA116?style=flat-square&logo=LeetCode&logoColor=white&link=https://leetcode.com/u/abhinavpadige06/)](https://leetcode.com/u/abhinavpadige06/) [![Gmail Badge](https://img.shields.io/badge/-abhinavpadige06%40gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:abhinavpadige06@gmail.com)](mailto:abhinavpadige06@gmail.com)
 
-**Use OnSpace**
+### Works
 
-Simply visit the [OnSpace Project]() and start prompting.
+**Projects**
 
-Changes made via OnSpace will be committed automatically to this repo.
+1. **[Nurovers (AMOS)](https://github.com/abhinavpadige4/amos)**: Building an agentic multi-agent orchestration system with specialized agents for planning, research, coding, memory, and tool execution. Focused on reliable AI workflows, state management, and harness engineering.
 
-**Use your preferred IDE**
+2. **[Brand Guardian AI](https://github.com/abhinavpadige4/azure-brand-ads)**: Developing a multimodal video compliance system using Azure AI Video Indexer, Azure OpenAI, LangGraph, and Azure AI Search for automated regulatory analysis.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in OnSpace.
+3. **[Synaptix AI](https://github.com/abhinavpadige4/Synaptix)**: Enterprise knowledge intelligence platform combining RAG, LangGraph, Amazon Bedrock, Pinecone, and AWS infrastructure for document-based question answering.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+**Internships**
 
-Follow these steps:
+1. **Celebal Technologies**: Selected as a Celebal Excellence Intern (2026). Working on enterprise AI engineering and an energy analytics platform combining machine learning, anomaly detection, and Hybrid RAG.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+2. **Infosys Springboard**: Worked on an AI-powered website testing agent using LangGraph, Playwright, Flask, and LLM-based natural language instruction parsing.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Technologies
 
-# Step 3: Install the necessary dependencies.
-npm i
+**Languages:** Python, Java, JavaScript, C, SQL
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+**AI / Machine Learning:** LangChain, LangGraph, RAG, LLMs, Hugging Face, PyTorch, TensorFlow, Scikit-learn
 
-**Edit a file directly in GitHub**
+**Backend & Frameworks:** FastAPI, Spring Boot, Flask, Django, Node.js, React
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+**Cloud & DevOps:** AWS, Microsoft Azure, Docker, Git, GitHub Actions, CI/CD
 
-**Use GitHub Codespaces**
+**Databases & Search:** PostgreSQL, MySQL, MongoDB, Redis, Pinecone, Qdrant
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+**Tools:** Kafka, Linux, Postman
 
-## What technologies are used for this project?
+### Currently Exploring
 
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [OnSpace]() and click on Share -> Publish.
+- Agentic AI and Multi-Agent Orchestration
+- AI Harness Engineering
+- Advanced RAG and Retrieval Evaluation
+- LLM Evaluation and Optimization
+- Distributed Systems and Cloud Architecture
